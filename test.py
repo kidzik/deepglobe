@@ -135,11 +135,11 @@ class TTAFrame():
         self.net.load_state_dict(torch.load(path))
 
 if __name__ == "__main__":
-    #source = 'dataset/test/'
-    source = 'dataset/valid/'
+    source = 'dataset/test/'
+    #source = 'dataset/valid/'
     val = os.listdir(source)
     solver = TTAFrame(DinkNet34)
-    solver.load('weights/log01_dink34.th')
+    solver.load('weights/log01_dink34_building.th')
     tic = time()
     target = 'submits/log01_dink34/'
     os.mkdir(target)
