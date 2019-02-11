@@ -88,10 +88,21 @@ def randomRotate90(image, mask, u=0.5):
 
     return image, mask
 
+def onehot_initialization_v2(a):
+    ncols = 16 #a.max()+1
+    out = np.zeros( (a.size,ncols), dtype=np.uint8)
+    out[np.arange(a.size),a.ravel()] = 1
+    out.shape = a.shape + (ncols,)
+    return out
+
 def default_loader(id, root):
-    print(id)
     img = cv2.imread(os.path.join(root,'{}_image.png').format(id))
-    mask = cv2.imread(os.path.join(root+'{}_building_mask.png').format(id), cv2.IMREAD_GRAYSCALE)
+    # mask = cv2.imread(os.path.join(root+'{}_field_mask.png').format(id), cv2.IMREAD_GRAYSCALE)
+    # print(mask.shape)
+    mask = np.load(os.path.join(root+'{}_mask.npy').format(id))
+    mask = onehot_initialization_v2(mask)*255
+
+    mask = np.max(mask[:,:,6:8],2)
 
     img = randomHueSaturationValue(img,
                                    hue_shift_limit=(-30, 30),
@@ -112,6 +123,7 @@ def default_loader(id, root):
     mask = np.array(mask, np.float32).transpose(2,0,1)/255.0
     mask[mask>=0.5] = 1
     mask[mask<=0.5] = 0
+    #cv2.imwrite("tmp/{}.png".format(id),mask.transpose(1,2,0)*255)
     #mask = abs(mask-1)
     return img, mask
 

@@ -20,8 +20,8 @@ SHAPE = (640,640)
 ROOT = 'dataset/train/'
 imagelist = filter(lambda x: x.find('_image')!=-1, os.listdir(ROOT))
 trainlist = map(lambda x: x[:x.rfind("_")], imagelist)
-NAME = 'log01_dink34_building'
-BATCHSIZE_PER_CARD = 4
+NAME = 'log01_dink34_roads'
+BATCHSIZE_PER_CARD = 16#4
 
 solver = MyFrame(DinkNet34, dice_bce_loss, 2e-4)
 batchsize = torch.cuda.device_count() * BATCHSIZE_PER_CARD

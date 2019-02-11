@@ -139,7 +139,8 @@ if __name__ == "__main__":
     #source = 'dataset/valid/'
     val = os.listdir(source)
     solver = TTAFrame(DinkNet34)
-    solver.load('weights/log01_dink34_building.th')
+    solver.load('weights/log01_dink34_roads.th')
+#    solver.load('weights/building-71epochs-1000samples.th')
     tic = time()
     target = 'submits/log01_dink34/'
     os.mkdir(target)
