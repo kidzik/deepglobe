@@ -151,9 +151,10 @@ if __name__ == "__main__":
         
     for i,name in enumerate(val):
         print("Input: "+source+name)
-        mask = solver.test_one_img_from_path(source+name)
-        mask[mask>4.0] = 255
-        mask[mask<=4.0] = 0
+#        mask = solver.test_one_img_from_path(source+name)
+#        mask[mask>4.0] = 255
+#        mask[mask<=4.0] = 0
+        mask = (solver.test_one_img_from_path(source+name) / 8.0)*255.0
         # mask[mask<=3.5] = 0
         # mask[mask>3.5] = 255
         # mask[mask>4.5] = 0

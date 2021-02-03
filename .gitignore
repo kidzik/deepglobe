@@ -1,0 +1,7 @@
+dataset
+weights
+output
+*.pyc
+*~
+logs
+input

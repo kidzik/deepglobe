@@ -102,7 +102,7 @@ def default_loader(id, root):
     mask = np.load(os.path.join(root+'{}_mask.npy').format(id))
     mask = onehot_initialization_v2(mask)*255
 
-    mask = np.max(mask[:,:,6:8],2)
+    mask = np.max(mask[:,:,15:16],2) # starting from 1, zero reserved for no annotation
 
     img = randomHueSaturationValue(img,
                                    hue_shift_limit=(-30, 30),
