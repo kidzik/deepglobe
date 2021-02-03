@@ -20,7 +20,7 @@ SHAPE = (640,640)
 ROOT = 'dataset/train/'
 imagelist = filter(lambda x: x.find('_image')!=-1, os.listdir(ROOT))
 trainlist = map(lambda x: x[:x.rfind("_")], imagelist)
-NAME = 'log01_dink34_roads'
+NAME = 'log01_dink34_cars'
 BATCHSIZE_PER_CARD = 16#4
 
 solver = MyFrame(DinkNet34, dice_bce_loss, 2e-4)
@@ -50,10 +50,7 @@ for epoch in range(1, total_epoch + 1):
     print ('epoch:',epoch,'    time:',int(time()-tic))
     print ('train_loss:',train_epoch_loss)
     print ('SHAPE:',SHAPE)
-    print ('********')
-    print ('epoch:',epoch,'    time:',int(time()-tic))
-    print ('train_loss:',train_epoch_loss)
-    print ('SHAPE:',SHAPE)
+
     
     if train_epoch_loss >= train_epoch_best_loss:
         no_optim += 1

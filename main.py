@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 import torch.utils.data as data
 from torch.autograd import Variable as V
+import sys
 
 import cv2
 import os
@@ -135,18 +136,21 @@ class TTAFrame():
         self.net.load_state_dict(torch.load(path))
 
 if __name__ == "__main__":
-    source = 'dataset/test/'
-    #source = 'dataset/valid/'
+    if len(sys.argv)==1:
+        print("Please provide the model name")
+        exit(0)
+    model = sys.argv[1]
+
+    source = 'input/'
     val = os.listdir(source)
     solver = TTAFrame(DinkNet34)
-    solver.load('weights/log01_dink34_roads.th')
-#    solver.load('weights/building-71epochs-1000samples.th')
-    tic = time()
-    target = 'submits/log01_dink34/'
-    os.mkdir(target)
+    solver.load('weights/'+model+'.th')
+    target = 'output/'+model+"/"
+    if not os.path.exists(target):
+        os.makedirs(target)
+        
     for i,name in enumerate(val):
-        if i%10 == 0:
-            print i/10, '    ','%.2f'%(time()-tic)
+        print("Input: "+source+name)
         mask = solver.test_one_img_from_path(source+name)
         mask[mask>4.0] = 255
         mask[mask<=4.0] = 0
@@ -154,4 +158,4 @@ if __name__ == "__main__":
         # mask[mask>3.5] = 255
         # mask[mask>4.5] = 0
         mask = np.concatenate([mask[:,:,None],mask[:,:,None],mask[:,:,None]],axis=2)
-        cv2.imwrite(target+name[:-7]+'mask.png',mask.astype(np.uint8))
+        cv2.imwrite(target+name,mask.astype(np.uint8))

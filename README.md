@@ -1,26 +1,18 @@
-# DeepGlobe-Road-Extraction-Challenge
-Code for the 1st place solution in [DeepGlobe Road Extraction Challenge](https://competitions.codalab.org/competitions/18467).
+# Satellite image analysis
 
-# Requirements
+## Usage
 
-- Cuda 8.0
-- Python 2.7
-- Pytorch 0.2.0
-- cv2
+1. Put `.png` your images in `input/`
+2. Run
+```
+python2 main.py [model_name]
+```
+where `[model_name]` is one of: `building-non-residential`, `building`, `cars`, `fields`, `roads`, `trees`, or `unpaved_roads`
+3. Find results in `output/[model_name]`
 
-# Usage
+## Downloading an image
 
-### Data
-Place '*train*', '*valid*' and '*test*' data folders in the '*dataset*' folder.
-
-Data is from [DeepGlobe Road Extraction Challenge](https://competitions.codalab.org/competitions/18467#participate-get_starting_kit). You should sign in first to get the data.
-
-### Train
-- Run `python train.py` to train the default D-LinkNet34.
-
-### Predict
-- Run `python test.py` to predict on the default D-LinkNet34.
-
-### Download trained D-LinkNet34
-- [Dropbox](https://www.dropbox.com/sh/h62vr320eiy57tt/AAB5Tm43-efmtYzW_GFyUCfma?dl=0)
-- [百度网盘](https://pan.baidu.com/s/1wqyOEkw5o0bzbuj7gBMesQ)
+I use zoom 17 and the following code:
+```
+wget 'http://maps.googleapis.com/maps/api/staticmap?center=Marszalkowska%206a,%2005-840%20Warszawa&zoom=17&maptype=satellite&size=1000x1000&key=[GOOGLE_MAPS_API_KEY]' -O input/1.png
+```
